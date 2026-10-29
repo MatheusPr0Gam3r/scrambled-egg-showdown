@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍳 SCRAMBLED EGG SHOWDOWN 3.5 - 2.5D (Otimizado Anti-Lag)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- TELA 1: LOBBY DE MENU PRINCIPAL -->
+    <div id="lobby-screen" class="screen">
+      <div class="lobby-card">
+        <h1>🍳 SCRAMBLED EGG SHOWDOWN</h1>
+        <p class="subtitle">Multiplayer 2.5D DOOM-Style • Vestiário & Sistema de Contas, Amigos e Trocas</p>
+
+        <!-- Barra Superior de Conta e Moedas -->
+        <div class="top-wallet-bar">
+          <div class="input-group-inline">
+            <label>Seu Apelido:</label>
+            <input type="text" id="player-name" value="GuerreiroDoOvo" maxlength="16">
+          </div>
+
+          <div class="auth-status-badge">
+            <span id="user-email-display">Sem Conta (Visitante)</span>
+            <button id="btn-open-auth-modal" class="btn secondary inline-btn">🔑 CONTA / LOGIN</button>
+          </div>
+
+          <div class="wallet-badge">💰 <span id="player-coins">0</span> MOEDAS</div>
+        </div>
+
+        <!-- Abas do Lobby -->
+        <div class="lobby-tabs">
+          <button id="tab-btn-rooms" class="tab-btn active">🌐 SALAS & PARTIDAS</button>
+          <button id="tab-btn-shop" class="tab-btn">🎁 LOJA DE CAIXAS (20)</button>
+          <button id="tab-btn-vestuario" class="tab-btn">👔 VESTIÁRIO (3D)</button>
+          <button id="tab-btn-friends" class="tab-btn">🤝 AMIGOS & TROCAS</button>
+        </div>
+
+        <!-- Conteúdo 1: Salas -->
+        <div id="tab-content-rooms" class="tab-content">
+          <div class="lobby-sections">
+            <div class="section-box">
+              <h3>🔨 Criar Nova Sessão</h3>
+              <div class="input-group">
+                <label>Nome da Sala:</label>
+                <input type="text" id="room-name" value="Café dos Campeões">
+              </div>
+              <div class="input-group">
+                <label>Mapa 2.5D:</label>
+                <select id="map-select">
+                  <option value="1">🏙️ 1. O Bairro (Neighborhood)</option>
+                  <option value="2">🏢 2. A Empresa (Corporate Office - 2 Andares)</option>
+                  <option value="3">🎯 3. Arena Paintball</option>
+                  <option value="4">🏰 4. A Mansão (Mansion - 2 Andares)</option>
+                  <option value="5">✈️ 5. O Super Avião (Huge Airplane)</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>Minigame:</label>
+                <select id="minigame-select">
+                  <option value="1">🍳 1. Roubo do Ovo Mexido (CTF)</option>
+                  <option value="2">🥔 2. Batata Quente (Hashbrown)</option>
+                  <option value="3">☕ 3. Conquista de Áreas (Mesa de Café)</option>
+                  <option value="4">💣 4. Demolição da Base (Panqueca Bomba)</option>
+                </select>
+              </div>
+              <button id="btn-create-room" class="btn primary">CRIAR SESSÃO</button>
+            </div>
+
+            <div class="section-box">
+              <h3>🌐 Salas Abertas</h3>
+              <div id="room-list" class="room-list"></div>
+              <button id="btn-refresh-rooms" class="btn secondary">ATUALIZAR LISTA</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conteúdo 2: Loja de Caixas para Roletar (20 Caixas + Sazonais) -->
+        <div id="tab-content-shop" class="tab-content hidden">
+          <div class="shop-header-banner">
+            <h3>🎁 LOJA DE CAIXAS & ROLETA DE SKINS</h3>
+            <p>Rolem as caixas para desbloquear 500 itens entre Chapéus, Camisas, Calças, Armas e Gritos de Morte!</p>
+          </div>
+          <div id="boxes-grid" class="boxes-grid"></div>
+        </div>
+
+        <!-- Conteúdo 3: Vestiário 3D Interativo -->
+        <div id="tab-content-vestuario" class="tab-content hidden">
+          <div class="vestuario-layout">
+            <div class="vestuario-preview-box">
+              <h3>👔 VISUALIZADOR 3D DE PERSONAGEM</h3>
+              <canvas id="vestuarioCanvas" width="300" height="320"></canvas>
+              <div class="rotation-controls">
+                <button id="btn-rot-left" class="btn secondary">🔄 GIRAR ESQUERDA</button>
+                <input type="range" id="vestuario-rot-slider" min="0" max="360" value="0">
+                <button id="btn-rot-right" class="btn secondary">GIRAR DIREITA 🔄</button>
+              </div>
+            </div>
+
+            <div class="vestuario-options-box">
+              <div class="input-group">
+                <label>Selecione a Classe:</label>
+                <select id="vestuario-class-select">
+                  <option value="scout">🔪 Batedor (Scout)</option>
+                  <option value="soldier">🧇 Soldado (Soldier)</option>
+                  <option value="pyro">🔥 Assador (Pyro)</option>
+                  <option value="demoman">🥞 Demolidor (Demoman)</option>
+                  <option value="heavy">🌽 Padeiro Pesado (Heavy)</option>
+                  <option value="engineer">☕ Engenheiro (Engineer)</option>
+                  <option value="medic">🥛 Barista (Medic)</option>
+                  <option value="sniper">🥖 Atirador (Sniper)</option>
+                  <option value="spy">🍇 Espião (Spy)</option>
+                </select>
+              </div>
+
+              <div class="search-filter-box">
+                <input type="text" id="vestuario-search" placeholder="🔍 Buscar por nome do item...">
+              </div>
+
+              <div class="vestuario-slot-tabs">
+                <button class="vslot-tab active" data-slot="hat">🎩 CHAPÉUS (100)</button>
+                <button class="vslot-tab" data-slot="shirt">👕 CAMISAS (100)</button>
+                <button class="vslot-tab" data-slot="pants">👖 CALÇAS (100)</button>
+                <button class="vslot-tab" data-slot="weapon_skin">🔫 ARMAS (100)</button>
+                <button class="vslot-tab" data-slot="death_scream">😱 GRITOS (100)</button>
+              </div>
+
+              <div id="vestuario-items-list" class="vestuario-items-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conteúdo 4: Amigos & Sistema de Trocas (Trading) -->
+        <div id="tab-content-friends" class="tab-content hidden">
+          <div class="social-layout">
+            <div class="social-box">
+              <h3>🤝 ADICIONAR AMIGO POR EMAIL</h3>
+              <div class="input-group">
+                <label>Digite o Email do Amigo:</label>
+                <input type="email" id="friend-email-input" placeholder="amigo@email.com">
+              </div>
+              <button id="btn-send-friend-request" class="btn primary">ENVIAR SOLICITAÇÃO</button>
+              
+              <div class="requests-section">
+                <h4>📩 Solicitações Pendentes:</h4>
+                <div id="friend-requests-list" class="requests-list">
+                  <p class="empty-hint">Nenhuma solicitação pendente.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-box">
+              <h3>👥 SUA LISTA DE AMIGOS</h3>
+              <div id="friends-list" class="friends-list">
+                <p class="empty-hint">Faça login e adicione amigos para negociar e jogar juntos!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MODAL DE LOGIN / CADASTRO DA CONTA -->
+    <div id="auth-modal" class="overlay hidden">
+      <div class="modal-box auth-box">
+        <h2 id="auth-title">🔑 ACESSAR SUA CONTA</h2>
+        
+        <div class="auth-tabs">
+          <button id="btn-auth-tab-login" class="tab-btn active">ENTRAR</button>
+          <button id="btn-auth-tab-register" class="tab-btn">CRIAR CONTA</button>
+        </div>
+
+        <div id="auth-form-login" class="auth-form">
+          <div class="input-group">
+            <label>Email:</label>
+            <input type="email" id="login-email" placeholder="seu@email.com">
+          </div>
+          <div class="input-group">
+            <label>Senha:</label>
+            <input type="password" id="login-password" placeholder="******">
+          </div>
+          <button id="btn-submit-login" class="btn primary">ENTRAR NA CONTA</button>
+        </div>
+
+        <div id="auth-form-register" class="auth-form hidden">
+          <div class="input-group">
+            <label>Seu Apelido:</label>
+            <input type="text" id="reg-name" placeholder="Guerreiro">
+          </div>
+          <div class="input-group">
+            <label>Email:</label>
+            <input type="email" id="reg-email" placeholder="seu@email.com">
+          </div>
+          <div class="input-group">
+            <label>Senha:</label>
+            <input type="password" id="reg-password" placeholder="******">
+          </div>
+          <button id="btn-submit-register" class="btn primary">CRIAR E SALVAR PROGRESSO</button>
+        </div>
+
+        <button id="btn-close-auth" class="btn secondary">FECHAR</button>
+      </div>
+    </div>
+
+    <!-- MODAL DE JANELA DE TROCA ENTRE AMIGOS (TRADING SYSTEM) -->
+    <div id="trade-modal" class="overlay hidden">
+      <div class="trade-box">
+        <h2>🤝 SISTEMA DE TROCA DE ITENS & MOEDAS</h2>
+        <p class="trade-subtitle">Negocie skins e moedas com <span id="trade-partner-email">Amigo</span></p>
+
+        <div class="trade-grid">
+          <!-- Lado A: Seus Itens -->
+          <div class="trade-column">
+            <h3>SEUS ITENS OFERECIDOS</h3>
+            <div id="my-trade-items" class="trade-items-dropzone"></div>
+            <div class="input-group">
+              <label>Oferecer Moedas (💰):</label>
+              <input type="number" id="my-trade-coins" min="0" value="0">
+            </div>
+          </div>
+
+          <!-- Lado B: Itens do Amigo -->
+          <div class="trade-column">
+            <h3>ITENS RECEBIDOS DO AMIGO</h3>
+            <div id="partner-trade-items" class="trade-items-dropzone"></div>
+            <div class="trade-coins-display">Moedas Oferecidas: <span id="partner-trade-coins">0</span> 💰</div>
+          </div>
+        </div>
+
+        <div class="trade-actions">
+          <button id="btn-confirm-trade" class="btn primary">CONFIRMAR TROCA</button>
+          <button id="btn-cancel-trade" class="btn danger">CANCELAR TROCA</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELA 2: SELEÇÃO DE TIME E CLASSE (TF2 Style) -->
+    <div id="class-select-screen" class="screen hidden">
+      <div class="class-card">
+        <h2>🪖 ESCOLHA SEU TIME E CLASSE</h2>
+        <div class="team-buttons">
+          <button id="btn-select-blue" class="btn-team blue">🟦 TIME AZUL (<span id="count-blue">0</span>/5)</button>
+          <button id="btn-select-red" class="btn-team red">🟥 TIME VERMELHO (<span id="count-red">0</span>/5)</button>
+        </div>
+
+        <div class="class-grid">
+          <div class="class-item" data-class="scout">🔪 Batedor (Scout)</div>
+          <div class="class-item" data-class="soldier">🧇 Soldado (Soldier)</div>
+          <div class="class-item" data-class="pyro">🔥 Assador (Pyro)</div>
+          <div class="class-item" data-class="demoman">🥞 Demolidor (Demoman)</div>
+          <div class="class-item" data-class="heavy">🌽 Padeiro Pesado (Heavy)</div>
+          <div class="class-item" data-class="engineer">☕ Engenheiro (Engineer)</div>
+          <div class="class-item" data-class="medic">🥛 Barista (Medic)</div>
+          <div class="class-item" data-class="sniper">🥖 Atirador (Sniper)</div>
+          <div class="class-item" data-class="spy">🍇 Espião (Spy)</div>
+        </div>
+
+        <button id="btn-confirm-join" class="btn primary">ENTRAR NA PARTIDA</button>
+      </div>
+    </div>
+
+    <!-- TELA 3: TELA DE JOGO 2.5D -->
+    <div id="game-screen" class="screen hidden">
+      <div id="top-bar">
+        <div id="match-timer">🚪 PREPARE-SE! PORTÕES FECHADOS</div>
+        <div id="score-board">AZUL 0 - 0 VERMELHO</div>
+        <div id="minigame-status">🍳 ROUBO DO OVO MEXIDO</div>
+      </div>
+
+      <canvas id="gameCanvas" width="800" height="450"></canvas>
+
+      <div id="announcement-banner" class="hidden"></div>
+
+      <div id="hud">
+        <div class="hud-stat"><span class="label">SALA:</span><span id="hud-room-code" class="value">---</span></div>
+        <div class="hud-stat"><span class="label">TIME:</span><span id="hud-team" class="value">---</span></div>
+        <div class="hud-stat"><span class="label">VIDA:</span><span id="hud-hp" class="value">100</span></div>
+        <div class="hud-stat"><span class="label">CLASSE:</span><span id="hud-class" class="value">BATEDOR</span></div>
+        <div class="hud-stat"><span class="label">ARMA (1,2,3):</span><span id="hud-weapon" class="value">FACA</span></div>
+        <div class="hud-stat"><span class="label">MUNIÇÃO (R):</span><span id="hud-ammo" class="value">6 / 36</span></div>
+        <div class="hud-stat"><span class="label">PING:</span><span id="hud-ping" class="value">-- ms</span></div>
+      </div>
+
+      <div class="controls-hint">
+        Clique para Mirar • WASD = Mover • Shift = Correr • Ctrl/C = Agachar • Espaço = Pular • 1,2,3 = Arma • R = Recarregar • B = Disfarce/Sentry
+      </div>
+
+      <!-- Overlay de Morte -->
+      <div id="death-screen" class="overlay hidden">
+        <h2>💀 VOCÊ FOI DERROTADO!</h2>
+        <p>Aguarde o café esfriar para voltar...</p>
+        <div id="respawn-timer">10</div>
+      </div>
+
+      <!-- Menu de Pausa (ESC) -->
+      <div id="settings-modal" class="overlay hidden">
+        <div class="modal-box">
+          <h2>⚙️ CONFIGURAÇÕES & PAUSA</h2>
+          
+          <div class="setting-row">
+            <label>Qualidade Gráfica:</label>
+            <select id="setting-quality">
+              <option value="high">Alta (800px HD)</option>
+              <option value="medium">Média (400px Retro)</option>
+              <option value="low">Baixa (200px Pixel)</option>
+            </select>
+          </div>
+
+          <div class="setting-row">
+            <label>Otimizador Anti-Lag & Suavização:</label>
+            <select id="setting-antilag">
+              <option value="on">Ativado (Interpolado / LERP)</option>
+              <option value="off">Desativado (Bruto)</option>
+            </select>
+          </div>
+
+          <div class="setting-row">
+            <label>Visão (FOV): <span id="fov-val">60°</span></label>
+            <input type="range" id="setting-fov" min="50" max="100" value="60">
+          </div>
+
+          <div class="setting-row">
+            <label>Volume Geral:</label>
+            <input type="range" id="setting-volume" min="0" max="100" value="80">
+          </div>
+
+          <div class="action-buttons">
+            <button id="btn-change-class" class="btn secondary">🪖 Trocar de Classe (Out of Combat)</button>
+            <button id="btn-leave-game" class="btn danger">🚪 Sair da Partida</button>
+            <button id="btn-close-settings" class="btn primary">VOLTAR AO JOGO (ESC)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE ROLETA E UNBOXING DE CAIXA -->
+    <div id="unboxing-modal" class="overlay hidden">
+      <div class="unboxing-card">
+        <h2 id="unboxing-title">🎁 ABRINDO CAIXA...</h2>
+        <div class="roulette-container">
+          <div class="roulette-pointer">▼</div>
+          <div id="roulette-strip" class="roulette-strip"></div>
+        </div>
+        <div id="unboxing-reward" class="unboxing-reward hidden">
+          <div id="reward-icon" class="reward-icon">🎁</div>
+          <div id="reward-name" class="reward-name">Item Desbloqueado!</div>
+          <div id="reward-rarity" class="reward-rarity">Raridade</div>
+          <button id="btn-claim-reward" class="btn primary">GUARDAR NO VESTIÁRIO</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE FIM DE PARTIDA E PATAMAR / PODIUM -->
+    <div id="podium-modal" class="overlay hidden">
+      <div class="podium-card">
+        <h2 id="podium-title">🏆 FIM DE PARTIDA - PATAMAR DOS MELHORES</h2>
+        <div id="podium-stands" class="podium-stands"></div>
+        <div id="player-reward-banner" class="player-reward-banner">
+          Sua Recompensa: <span id="my-coins-gained" class="coins-gained">+0 💰</span>
+        </div>
+        <button id="btn-close-podium" class="btn primary">CONTINUAR</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/textures.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

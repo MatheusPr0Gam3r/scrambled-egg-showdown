@@ -1,0 +1,140 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; user-select: none; }
+body { background: #0c0d12; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+
+.screen { width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+.hidden { display: none !important; }
+
+/* LOBBY CARD */
+.lobby-card { background: #161822; border: 3px solid #ff8800; padding: 20px; border-radius: 8px; max-width: 900px; width: 94%; text-align: center; box-shadow: 0 0 20px rgba(255, 136, 0, 0.3); }
+.subtitle { color: #aaa; margin-bottom: 12px; font-size: 12px; }
+
+/* BARRA DE CONTA E MOEDAS */
+.top-wallet-bar { display: flex; justify-content: space-between; align-items: center; background: #0a0c14; padding: 8px 14px; border: 1px solid #333; border-radius: 6px; margin-bottom: 12px; }
+.input-group-inline { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #ffaa00; }
+.input-group-inline input { width: 140px; padding: 4px 8px; }
+
+.auth-status-badge { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #00ccff; }
+.inline-btn { padding: 4px 8px !important; margin: 0 !important; font-size: 10px !important; }
+.wallet-badge { background: #261e06; border: 1px solid #ffcc00; color: #ffcc00; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 13px; }
+
+/* ABAS DO LOBBY */
+.lobby-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+.tab-btn { flex: 1; padding: 10px; background: #0c0e18; border: 1px solid #444; color: #aaa; font-weight: bold; cursor: pointer; border-radius: 4px; font-size: 11px; transition: 0.2s; }
+.tab-btn.active { background: #ff6600; color: #fff; border-color: #ffaa00; }
+
+.tab-content { width: 100%; min-height: 320px; }
+
+/* SALAS */
+.lobby-sections { display: flex; gap: 16px; }
+.section-box { flex: 1; background: #0d0f18; border: 1px solid #333; padding: 14px; border-radius: 6px; text-align: left; }
+.input-group { margin-bottom: 10px; }
+.input-group label { display: block; font-size: 11px; color: #ffaa00; margin-bottom: 4px; font-weight: bold; }
+input, select { width: 100%; padding: 8px; background: #06070a; border: 1px solid #444; color: #fff; border-radius: 4px; font-size: 12px; }
+
+button.btn { width: 100%; padding: 10px; font-weight: bold; cursor: pointer; border-radius: 4px; margin-top: 8px; border: none; font-size: 12px; transition: 0.1s; }
+button.btn.primary { background: #ff6600; color: #fff; }
+button.btn.primary:hover { background: #ff8822; }
+button.btn.secondary { background: #333; color: #fff; }
+button.btn.secondary:hover { background: #555; }
+button.btn.danger { background: #cc2222; color: #fff; }
+
+.room-list { max-height: 180px; overflow-y: auto; background: #06070a; padding: 6px; border: 1px solid #222; margin-bottom: 8px; }
+.room-item { display: flex; justify-content: space-between; align-items: center; background: #1a1c28; padding: 8px; margin-bottom: 6px; font-size: 11px; border-left: 3px solid #ff8800; }
+.btn-join { padding: 4px 10px; background: #0088ff; color: #fff; border: none; cursor: pointer; border-radius: 3px; font-weight: bold; }
+
+/* LOJA DE CAIXAS (20 CAIXAS) */
+.shop-header-banner { background: #0e121e; border: 1px solid #ff8800; padding: 10px; border-radius: 6px; margin-bottom: 10px; font-size: 11px; }
+.boxes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-height: 280px; overflow-y: auto; padding-right: 4px; }
+.box-card { background: #0c0f18; border: 1px solid #333; padding: 10px; border-radius: 6px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+.box-card.seasonal { border-color: #ffaa00; background: #1f1406; }
+.seasonal-badge { position: absolute; top: 4px; right: 4px; background: #ff3300; color: #fff; font-size: 8px; padding: 2px 4px; border-radius: 3px; font-weight: bold; }
+.box-icon { font-size: 28px; margin: 4px 0; }
+.box-title { font-size: 11px; font-weight: bold; color: #fff; }
+.box-cost { font-size: 10px; color: #ffaa00; margin-top: 4px; }
+
+/* VESTIÁRIO 3D */
+.vestuario-layout { display: flex; gap: 12px; }
+.vestuario-preview-box { flex: 1; background: #0a0c14; border: 1px solid #333; padding: 10px; border-radius: 6px; text-align: center; }
+.rotation-controls { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.rotation-controls button { flex: 1; font-size: 9px; padding: 6px; }
+
+.vestuario-options-box { flex: 1.4; background: #0a0c14; border: 1px solid #333; padding: 10px; border-radius: 6px; text-align: left; }
+.search-filter-box { margin-bottom: 8px; }
+.search-filter-box input { padding: 6px; font-size: 11px; }
+
+.vestuario-slot-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
+.vslot-tab { flex: 1; padding: 6px 2px; font-size: 9px; background: #141724; border: 1px solid #333; color: #aaa; cursor: pointer; border-radius: 3px; }
+.vslot-tab.active { background: #ff6600; color: #fff; border-color: #ffaa00; }
+
+.vestuario-items-list { max-height: 180px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.vitem-card { background: #121522; border: 1px solid #333; padding: 6px; border-radius: 4px; font-size: 10px; display: flex; justify-content: space-between; align-items: center; }
+.vitem-card.equipped { border-color: #00ff66; background: #0d2216; }
+.vitem-rarity-tag { font-size: 8px; padding: 1px 4px; border-radius: 2px; font-weight: bold; }
+
+/* AMIGOS & SISTEMA SOCIAL */
+.social-layout { display: flex; gap: 12px; text-align: left; }
+.social-box { flex: 1; background: #0a0c14; border: 1px solid #333; padding: 12px; border-radius: 6px; }
+.social-box h3 { font-size: 12px; color: #ffaa00; margin-bottom: 8px; }
+.requests-section { margin-top: 12px; }
+.requests-list, .friends-list { max-height: 180px; overflow-y: auto; margin-top: 6px; display: flex; flex-direction: column; gap: 6px; }
+.friend-card { background: #121522; border: 1px solid #333; padding: 8px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
+.friend-status { font-size: 9px; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+.friend-status.online { background: #008800; color: #fff; }
+.friend-status.offline { background: #444; color: #ccc; }
+.empty-hint { font-size: 10px; color: #666; font-style: italic; }
+
+/* AUTH MODAL (LOGIN & CADASTRO) */
+.auth-box { max-width: 380px !important; text-align: center; }
+.auth-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+.auth-form { text-align: left; }
+
+/* TRADE MODAL (SISTEMA DE TROCA) */
+.trade-box { background: #121522; border: 3px solid #00ccff; padding: 20px; border-radius: 8px; max-width: 650px; width: 92%; text-align: center; }
+.trade-subtitle { font-size: 11px; color: #aaa; margin-bottom: 12px; }
+.trade-grid { display: flex; gap: 12px; text-align: left; }
+.trade-column { flex: 1; background: #0a0c14; border: 1px solid #333; padding: 10px; border-radius: 6px; }
+.trade-column h3 { font-size: 11px; color: #ffaa00; margin-bottom: 6px; }
+.trade-items-dropzone { min-height: 140px; max-height: 180px; overflow-y: auto; background: #05060a; border: 1px dashed #444; padding: 6px; border-radius: 4px; margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+.trade-actions { display: flex; gap: 8px; margin-top: 12px; }
+
+/* SELEÇÃO DE TIME E CLASSE */
+.class-card { background: #161822; border: 3px solid #00aaff; padding: 20px; border-radius: 8px; max-width: 650px; width: 90%; text-align: center; }
+.team-buttons { display: flex; gap: 12px; margin: 12px 0; }
+.btn-team { flex: 1; padding: 10px; font-size: 13px; font-weight: bold; border: 2px solid #555; cursor: pointer; background: #111; color: #fff; border-radius: 4px; }
+.btn-team.blue.selected { background: #0055ff; border-color: #00ccff; }
+.btn-team.red.selected { background: #cc1111; border-color: #ff5555; }
+
+.class-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px; }
+.class-item { background: #0d0f18; border: 1px solid #333; padding: 10px; cursor: pointer; font-size: 11px; font-weight: bold; border-radius: 4px; text-align: center; }
+.class-item.selected { border-color: #ffaa00; background: #2a2010; color: #ffaa00; }
+
+/* JOGO E HUD */
+#top-bar { width: 800px; background: #11141f; border: 2px solid #333; display: flex; justify-content: space-between; padding: 8px 16px; font-size: 11px; font-weight: bold; color: #ffcc00; }
+#gameCanvas { border: 3px solid #222; background: #000; image-rendering: pixelated; width: 800px; height: 450px; cursor: crosshair; }
+
+#announcement-banner { position: absolute; top: 180px; background: rgba(0,0,0,0.85); border: 2px solid #ffaa00; color: #ffaa00; padding: 12px 24px; font-size: 18px; font-weight: bold; text-align: center; border-radius: 6px; }
+
+#hud { width: 800px; background: #1c130a; border: 2px solid #663300; display: flex; justify-content: space-around; padding: 8px; }
+.hud-stat { display: flex; flex-direction: column; align-items: center; }
+.hud-stat .label { font-size: 10px; color: #ffaa00; }
+.hud-stat .value { font-size: 13px; font-weight: bold; }
+
+.controls-hint { margin-top: 6px; font-size: 10px; color: #888; }
+
+/* OVERLAYS & ROLETA */
+.overlay { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; }
+
+.unboxing-card { background: #141724; border: 3px solid #ffaa00; padding: 24px; border-radius: 8px; max-width: 600px; width: 90%; text-align: center; }
+.roulette-container { position: relative; width: 100%; height: 100px; background: #07080d; border: 2px solid #333; border-radius: 6px; overflow: hidden; margin: 16px 0; }
+.roulette-pointer { position: absolute; top: 0; left: 50%; transform: translateX(-50%); font-size: 20px; color: #ff0000; z-index: 10; }
+.roulette-strip { display: flex; position: absolute; left: 0; top: 10px; height: 80px; transition: transform 0.05s linear; }
+.roulette-item { width: 80px; height: 80px; background: #1c2030; border: 1px solid #444; margin-right: 6px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 10px; border-radius: 4px; }
+
+.podium-card { background: #141724; border: 3px solid #ffd700; padding: 24px; border-radius: 8px; max-width: 650px; width: 90%; text-align: center; }
+.podium-stands { display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin: 20px 0; min-height: 180px; }
+.podium-stand { flex: 1; background: #1b2032; border: 2px solid #ffaa00; border-radius: 6px 6px 0 0; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+.podium-stand.first { height: 170px; border-color: #ffd700; background: #2b2408; }
+.podium-stand.second { height: 140px; border-color: #c0c0c0; }
+.podium-stand.third { height: 110px; border-color: #cd7f32; }
+.player-reward-banner { font-size: 16px; margin: 12px 0; color: #fff; }
+.coins-gained { color: #ffcc00; font-weight: bold; }
